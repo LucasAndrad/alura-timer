@@ -14,11 +14,17 @@ app.on('window-all-closed', () => {
   app.quit();
 });
 
+let aboutWindow = null;
 ipcMain.on('open-about-window', () => {
-  let aboutWindow = new BrowserWindow({
-    width: 350,
-    height: 300
-  });
-  
+  if(aboutWindow == null) {
+    aboutWindow = new BrowserWindow({
+      width: 350,
+      height: 300
+    });
+    aboutWindow.on('closed', () => {
+      aboutWindow = null;
+    });
+  }
+
   aboutWindow.loadFile('app/about.html');
 });
