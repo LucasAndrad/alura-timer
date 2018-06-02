@@ -1,10 +1,13 @@
 const { ipcRenderer } = require('electron');
-const path = require('path');
-const timer = require(filePath('js/timer'));
+const timer = require('./timer');
 
-function filePath(file) {
-  return path.resolve(__dirname, file);
-}
+// old require type
+// const path = require('path');
+// const timer = require(filePath('js/timer'));
+
+// function filePath(file) {
+//   return path.resolve(__dirname, file);
+// }
 
 let linkAbout = document.querySelector('#link-about');
 let tempo = document.querySelector('.tempo');
