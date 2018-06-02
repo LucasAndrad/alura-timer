@@ -15,8 +15,20 @@ linkAbout.addEventListener('click', function (){
 
 let button = document.querySelector('.botao-play');
 let imgs = ['img/play-button.svg', 'img/stop-button.svg'];
+let play = false;
 button.addEventListener('click', () => {
   imgs = imgs.reverse();
   button.src = imgs[0];
-  timer.iniciar(tempo);
+  playStop();
 });
+
+function playStop() {
+  if(play) {
+    timer.parar();
+    play = false;
+  }
+  else {
+    timer.iniciar(tempo);
+    play = true;
+  }
+}
