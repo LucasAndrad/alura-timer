@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const data = require('./data');
 
 app.on('ready', () => {
   let homeWindown = new BrowserWindow({
@@ -36,4 +37,5 @@ ipcMain.on('close-about-windown', () => {
 
 ipcMain.on('curso-parado', (event, curso, tempoEstudado) => {
   console.log(`O curso ${curso} foi estudado por ${tempoEstudado}`);
+  data.salvaDados(curso, tempoEstudado);
 })

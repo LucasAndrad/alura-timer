@@ -1,5 +1,5 @@
 {
-  "name": "alura-timer",
+  "name": "timer",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -13,6 +13,7 @@
     "electron": "^2.0.2"
   },
   "dependencies": {
+    "jsonfile-promised": "0.0.1",
     "moment": "^2.22.2"
   }
 }
