@@ -11,6 +11,7 @@ const timer = require('./timer');
 
 let linkAbout = document.querySelector('#link-about');
 let tempo = document.querySelector('.tempo');
+let curso = document.querySelector('.curso');
 
 linkAbout.addEventListener('click', function (){
   ipcRenderer.send('open-about-window');
@@ -27,7 +28,7 @@ button.addEventListener('click', () => {
 
 function playStop() {
   if(play) {
-    timer.parar();
+    timer.parar(curso.textContent);
     play = false;
   }
   else {
