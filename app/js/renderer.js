@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron');
 const timer = require('./timer');
+const data = require('../../data');
 
 // old require type
 // const path = require('path');
@@ -12,6 +13,16 @@ const timer = require('./timer');
 let linkAbout = document.querySelector('#link-about');
 let tempo = document.querySelector('.tempo');
 let curso = document.querySelector('.curso');
+
+window.onload = () => {
+  data.pegaDados(curso.textContent)
+  .then((dados) => {
+    tempo.textContent = dados.tempo;
+  }).catch((err) => {
+    console.log(err);
+    tempo.textContent = "00:00:00";
+  });
+}
 
 linkAbout.addEventListener('click', function (){
   ipcRenderer.send('open-about-window');

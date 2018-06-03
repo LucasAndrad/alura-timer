@@ -21,7 +21,7 @@ module.exports = {
     }
     jsonfile.writeFile(arquivoDoCurso, dados, {spaces: 2})
       .then((result) => {
-        console.log('Tempo salve com sucesso');
+        console.log('Tempo salvo com sucesso');
       }).catch((err) => {
         console.log(err);
       });
@@ -33,5 +33,9 @@ module.exports = {
       }).catch((err) => {
         console.log(err);
       });
+  },
+  pegaDados(curso) {
+    let arquivoCurso = __dirname + '/data/' + curso + '.json';
+    return jsonfile.readFile(arquivoCurso);
   }
 }
