@@ -1,13 +1,25 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
 const data = require('./data');
+
+let tray = null;
 
 app.on('ready', () => {
   let homeWindown = new BrowserWindow({
     width: 600,
     height: 400
   });
-
+  tray = new Tray(__dirname + '/app/img/icon.png');
   homeWindown.loadFile('app/index.html');
+
+  let trayMenu = Menu.buildFromTemplate([
+    {label: 'Cursos'},
+    {label: '', type: 'separator'},
+    {label: 'JavaScript', type: 'radio'},
+    {label: 'Java', type: 'radio'},
+    {label: 'Photoshop', type: 'radio'}
+  ]);
+  tray.setToolTip('Timer Application');
+  tray.setContextMenu(trayMenu)
 });
 
 app.on('window-all-closed', () => {
