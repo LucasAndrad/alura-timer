@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
+const templateGenerator = require('./app/js/template')
 const data = require('./data');
 
 let tray = null;
@@ -11,14 +12,9 @@ app.on('ready', () => {
   tray = new Tray(__dirname + '/app/img/icon.png');
   homeWindown.loadFile('app/index.html');
 
-  let trayMenu = Menu.buildFromTemplate([
-    {label: 'Cursos'},
-    {label: '', type: 'separator'},
-    {label: 'JavaScript', type: 'radio'},
-    {label: 'Java', type: 'radio'},
-    {label: 'Photoshop', type: 'radio'}
-  ]);
-  tray.setToolTip('Timer Application');
+  let template = templateGenerator.geraTrayTemplate();
+
+  let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu)
 });
 
