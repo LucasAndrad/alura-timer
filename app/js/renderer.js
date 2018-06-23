@@ -13,6 +13,8 @@ const data = require('../../data');
 let linkAbout = document.querySelector('#link-about');
 let tempo = document.querySelector('.tempo');
 let curso = document.querySelector('.curso');
+let botaoAdicionar = document.querySelector('.botao-adicionar');
+let campoAdicionar = document.querySelector('campo-adicionar');
 
 window.onload = () => {
   data.pegaDados(curso.textContent)
@@ -47,3 +49,11 @@ function playStop() {
     play = true;
   }
 }
+
+ipcRenderer.on('curso-trocado', (event, nomeCurso)=> {
+  data.pegaDados(nomeCurso)
+    .then((dados)=> {
+      tempo.textContent = dados.tempo;
+    });
+  curso.textContent = nomeCurso;
+});

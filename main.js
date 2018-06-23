@@ -6,16 +6,18 @@ let tray = null;
 
 app.on('ready', () => {
   let homeWindown = new BrowserWindow({
-    width: 600,
-    height: 400
+    width: 700,
+    height: 450
   });
   tray = new Tray(__dirname + '/app/img/icon.png');
   homeWindown.loadFile('app/index.html');
 
-  let template = templateGenerator.geraTrayTemplate();
+  let template = templateGenerator.geraTrayTemplate(homeWindown);
 
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu)
+
+  homeWindown.loadURL(`file://${__dirname}/app/index.html`);
 });
 
 app.on('window-all-closed', () => {
