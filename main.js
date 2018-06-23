@@ -18,6 +18,24 @@ app.on('ready', () => {
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu)
 
+  let templateMenu = [{
+    label: 'Timer',
+    submenu: [
+      { label: 'Item 1' },
+      { label: 'Item 2' }
+    ]
+  }];
+  let menuPrincipal = Menu.buildFromTemplate(templateMenu);
+  if(process.platform == 'darwin') {
+    templateMenu.unshift({
+        label: app.getName(),
+        submenu: [
+            { label: 'Menu do Mac, diferentão' }
+        ]
+    });
+  }  
+  Menu.setApplicationMenu(menuPrincipal);
+
   homeWindown.loadURL(`file://${__dirname}/app/index.html`);
 });
 
