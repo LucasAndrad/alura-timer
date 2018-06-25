@@ -1,42 +1,29 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron');
-const templateGenerator = require('./app/js/template')
+const templateGenerator = require('./app/js/template');
 const data = require('./data');
 
 let tray = null;
-let homeWindown = null;
+let homeWindow = null;
 
 app.on('ready', () => {
-  homeWindown = new BrowserWindow({
+  homeWindow = new BrowserWindow({
     width: 700,
     height: 450
   });
+  homeWindow.openDevTools();
   tray = new Tray(__dirname + '/app/img/icon.png');
-  homeWindown.loadFile('app/index.html');
+  homeWindow.loadFile('app/index.html');
 
-  let template = templateGenerator.geraTrayTemplate(homeWindown);
+  let template = templateGenerator.geraTrayTemplate(homeWindow);
 
   let trayMenu = Menu.buildFromTemplate(template);
   tray.setContextMenu(trayMenu)
 
-  let templateMenu = [{
-    label: 'Timer',
-    submenu: [
-      { label: 'Item 1' },
-      { label: 'Item 2' }
-    ]
-  }];
+  let templateMenu = templateGenerator.geraMenuPricipalTemplate();
   let menuPrincipal = Menu.buildFromTemplate(templateMenu);
-  if(process.platform == 'darwin') {
-    templateMenu.unshift({
-        label: app.getName(),
-        submenu: [
-            { label: 'Menu do Mac, diferentão' }
-        ]
-    });
-  }  
   Menu.setApplicationMenu(menuPrincipal);
 
-  homeWindown.loadURL(`file://${__dirname}/app/index.html`);
+  homeWindow.loadURL(`file://${__dirname}/app/index.html`);
 });
 
 app.on('window-all-closed', () => {
@@ -70,7 +57,7 @@ ipcMain.on('curso-parado', (event, curso, tempoEstudado) => {
 });
 
 ipcMain.on('curso-adicionado', (event, novoCurso) => {
-  let novoTemplate = templateGenerator.adicionaCursoNoTray(novoCurso, homeWindown);
+  let novoTemplate = templateGenerator.adicionaCursoNoTray(novoCurso, homeWindow);
   let novoTrayMenu = Menu.buildFromTemplate(novoTemplate);
   tray.setContextMenu(novoTrayMenu);
 });

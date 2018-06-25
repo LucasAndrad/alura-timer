@@ -1,4 +1,5 @@
 const data = require('../../data');
+const { ipcMain } = require('electron');
 
 module.exports = {
 
@@ -32,5 +33,21 @@ module.exports = {
       }
     });
     return this.templateInicial;
+  },
+  geraMenuPricipalTemplate(app) {
+    let templateMenu = [
+      {
+        label: 'Sobre',
+        submenu: [
+          {
+            label: 'Sobre o Timer',
+            click: () => {
+              ipcMain.emit('open-about-window');
+            }
+          }
+        ]
+      }
+    ]
+    return templateMenu;
   }
 }
